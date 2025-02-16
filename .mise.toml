@@ -1,0 +1,10 @@
+[tools]
+node = "22"
+
+[tasks.build-mermaid-mcp]
+description = "Build mermaid-mcp"
+run = [
+    "npm install",
+    "npm run build",
+    "docker build -t mermaid-mcp -f Dockerfile .",
+]
