@@ -125,5 +125,39 @@ If the diagram definition is in Markdown format, the diagram definition is extra
   }
 );
 
+// dry-run tool
+server.tool("dry_run_mermaid",
+    `\
+Validates a Mermaid diagram definition without generating a diagram. \
+The diagram definition can be in Mermaid format or Markdown format. \
+If the diagram definition is in Markdown format, the diagram definition is extracted from the first \`\`\`mermaid\`\`\` block in the input.\
+`.trim(),
+    {
+        diagram: z.string().describe("Diagram definition in Mermaid format"),
+        format: z.enum(["svg", "png", "pdf"]).default("svg").describe("Output format"),
+        isMarkdown: z.boolean().default(false).describe("Whether the diagram definition is in Markdown format")
+    },
+    async ({ diagram, format, isMarkdown }) => {
+        try {
+            const timestamp = new Date().getTime();
+            await generateDiagram(diagram, format, isMarkdown, timestamp);
+            return {
+                content: [{
+                    type: "text",
+                    text: JSON.stringify({status: "ok"}),
+                }]
+            };
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : 'Occurred an error';
+            return {
+                content: [{
+                    type: "text",
+                    text: JSON.stringify({status: "failed", message: errorMessage}),
+                }]
+            };
+        }
+    }
+);
+
 const transport = new StdioServerTransport();
 await server.connect(transport);
