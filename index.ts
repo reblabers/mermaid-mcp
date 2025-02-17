@@ -8,7 +8,7 @@ import os from "os";
 
 const server = new McpServer({
   name: "mermaid",
-  version: "1.0.0"
+  version: "1.0.1"
 });
 
 async function render(
@@ -126,7 +126,7 @@ If the diagram definition is in Markdown format, the diagram definition is extra
 );
 
 // dry-run tool
-server.tool("dry_run_mermaid",
+server.tool("dryrun_mermaid",
     `\
 Validates a Mermaid diagram definition without generating a diagram. \
 The diagram definition can be in Mermaid format or Markdown format. \
