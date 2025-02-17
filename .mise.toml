@@ -1,7 +1,7 @@
 [tools]
 node = "22"
 
-[tasks.build-mermaid-mcp]
+[tasks.build]
 description = "Build mermaid-mcp"
 run = [
     "npm install",
