@@ -83,7 +83,7 @@ If the diagram definition is in Markdown format, the diagram definition is extra
 `.trim(),
   {
     diagram: z.string().describe("Diagram definition in Mermaid format"),
-    format: z.enum(["svg", "png", "pdf"]).default("svg").describe("Output format"),
+    format: z.enum(["svg", "png", "pdf"]).default("png").describe("Output format"),
     isMarkdown: z.boolean().default(false).describe("Whether the diagram definition is in Markdown format")
   },
   async ({ diagram, format, isMarkdown }) => {
